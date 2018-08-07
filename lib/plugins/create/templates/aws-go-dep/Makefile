@@ -3,6 +3,11 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/hello hello/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/world world/main.go
 
+build-local:
+	dep ensure -v
+	env go build -ldflags="-s -w" -o bin-local/hello hello/main.go
+	env go build -ldflags="-s -w" -o bin-local/world world/main.go
+
 .PHONY: clean
 clean:
 	rm -rf ./bin ./vendor Gopkg.lock

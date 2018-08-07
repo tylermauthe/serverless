@@ -65,9 +65,51 @@ Change directories into 'myService' folder and you can see this project has 2 ha
 
 This because a `main()` function is required as entry point for each handler executable.  
 
-## 2. Build using go build to create static binaries
+## 2. Invoke function locally
 
-Run `make build` to build both functions. Successful build should generate the following binaries:
+*Note: if your local environment is Linux, you can skip this step as your Go binaries are directly compatible with Lambda*
+
+Go is a compiled language, with statically linked binaries built specifically for the platform they run on. To get started, run `make build-local` to build both functions for local invocation. Successful build should generate the following binaries:
+
+```
+.
+├── bin-local/
+│   |── hello
+│   └── world
+```
+
+
+```
+sls invoke local -f hello
+```
+
+```
+sls invoke local -f world
+```
+
+Invoke either deployed function with command `invoke` and `--function` or shorthand `-f`.
+
+In your terminal window you should see the response from AWS Lambda.
+
+```bash
+serverless invoke -f hello
+
+{
+    "message": "Go Serverless v1.0! Your function executed successfully!"
+}
+
+serverless invoke -f world
+
+{
+    "message": "Okay so your other function also executed successfully!"
+}
+```
+
+Congrats you have deployed and ran your Hello World function!
+
+## 3. Build using go build to create static binaries
+
+Next, run `make build` to build both functions again in a way that's compatible. Successful build should generate the following binaries:
 
 ```
 .
@@ -76,7 +118,7 @@ Run `make build` to build both functions. Successful build should generate the f
 │   └── world
 ```
 
-## 3. Deploy
+## 4. Deploy
 
 ```
 sls deploy
@@ -84,7 +126,7 @@ sls deploy
 
 This will deploy your function to AWS Lambda based on the settings in `serverless.yml`.
 
-## 4. Invoke deployed function
+## 5. Invoke deployed function
 
 ```
 sls invoke -f hello
